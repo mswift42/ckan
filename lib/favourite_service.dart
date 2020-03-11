@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cka/recipe.dart';
+import 'package:ckan/recipe.dart';
 import 'package:path_provider/path_provider.dart';
 
 class FavouriteService {

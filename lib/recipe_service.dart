@@ -1,4 +1,4 @@
-import 'package:cka/recipe.dart';
+import 'package:ckan/recipe.dart';
 
 Future<List<Recipe>> fetchRecipes(SearchQuery searchQuery) async {
   var cdoc = CKDocument(searchQuery.searchterm, searchQuery.page.toString(),

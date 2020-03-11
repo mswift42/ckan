@@ -1,4 +1,4 @@
-import 'package:cka/last_search_service.dart';
+import 'package:ckan/last_search_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

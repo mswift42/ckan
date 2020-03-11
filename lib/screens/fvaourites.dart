@@ -1,6 +1,6 @@
-import 'package:cka/main.dart';
-import 'package:cka/models/favourite.dart';
-import 'package:cka/recipe.dart';
+import 'package:ckan/main.dart';
+import 'package:ckan/models/favourite.dart';
+import 'package:ckan/recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';

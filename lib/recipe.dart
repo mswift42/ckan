@@ -1,4 +1,4 @@
-import 'package:cka/recipe_service.dart';
+import 'package:ckan/recipe_service.dart';
 import 'package:flutter/material.dart' hide Element;
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';

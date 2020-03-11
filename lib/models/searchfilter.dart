@@ -1,4 +1,4 @@
-import 'package:cka/recipe_service.dart' show SearchFilter;
+import 'package:ckan/recipe_service.dart' show SearchFilter;
 import 'package:flutter/material.dart';
 
 class SearchFilterModel extends ChangeNotifier {

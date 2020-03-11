@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:cka/recipe.dart' show RecipeDetail;
+import 'package:ckan/recipe.dart' show RecipeDetail;
 import 'package:flutter/material.dart';
 
 class FavouriteModel extends ChangeNotifier {

@@ -1,4 +1,4 @@
-import 'package:cka/recipe.dart';
+import 'package:ckan/recipe.dart';
 
 List<Recipe> mockresultlist = [
   Recipe(
