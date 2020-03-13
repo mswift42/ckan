@@ -13,7 +13,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 void main() => runApp(
       ChangeNotifierProvider(
-        builder: (context) => FavouriteModel(),
+        create: (context) => FavouriteModel(),
         child: CKApp(),
       ),
     );
