@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cka/recipe.dart';
+import 'package:ckan/recipe.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:test/test.dart';
