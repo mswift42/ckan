@@ -176,6 +176,11 @@ class CKDocSelection extends DocSelection {
   }
 }
 
+class BGFSelection extends DocSelection {
+  Element bgfnode;
+  BGFSelection(this.bgfnode) : super(bgfnode);
+}
+
 List<Recipe> recipes(Document doc) {
   var sels = doc.querySelectorAll('.rsel-item');
   return sels.map((i) => Recipe.fromCkDocSelection(CKDocSelection(i))).toList();
