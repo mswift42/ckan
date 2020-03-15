@@ -109,6 +109,7 @@ class SearchQuery {
 }
 
 const CKPrefix = 'https://www.chefkoch.de';
+const BBGFPrefix = 'https://www.bbcgoodfood.com/search';
 
 class CKDocument {
   String searchterm;
