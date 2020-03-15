@@ -133,10 +133,16 @@ class CKDocument {
   }
 }
 
-class CKDocSelection {
+class DocSelection {
+  Element node;
+
+  DocSelection(this.node);
+}
+
+class CKDocSelection extends DocSelection {
   Element cknode;
 
-  CKDocSelection(this.cknode);
+  CKDocSelection(this.cknode) : super(cknode);
 
   String title() {
     return cknode.querySelector(".ds-heading-link").text;
