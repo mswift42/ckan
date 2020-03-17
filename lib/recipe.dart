@@ -111,14 +111,14 @@ class SearchQuery {
 const CKPrefix = 'https://www.chefkoch.de';
 const BBGFPrefix = 'https://www.bbcgoodfood.com/search';
 
-class CKDocument {
+class RecDocument {
   String searchterm;
   String page;
   String searchfilter;
 
-  CKDocument(this.searchterm, this.page, this.searchfilter);
+  RecDocument(this.searchterm, this.page, this.searchfilter);
 
-  Future<String> getCKPage() async {
+  Future<String> getPage() async {
     http.Response response = await http.get(queryUrl());
     return response.body;
   }
@@ -128,9 +128,18 @@ class CKDocument {
   }
 
   Future<Document> getDoc() async {
-    String ckbody = await getCKPage();
+    String ckbody = await getPage();
     return parse(ckbody);
   }
+}
+
+class CKDocument extends RecDocument {
+  String searchterm;
+  String page;
+  String searchfilter;
+
+  CKDocument(this.searchterm, this.page, this.searchfilter)
+      : super(searchterm, page, searchfilter);
 }
 
 class DocSelection {
@@ -178,6 +187,7 @@ class CKDocSelection extends DocSelection {
 
 class BGFSelection extends DocSelection {
   Element bgfnode;
+
   BGFSelection(this.bgfnode) : super(bgfnode);
 }
 
