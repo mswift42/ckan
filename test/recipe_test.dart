@@ -232,4 +232,15 @@ void main() {
     txt = file.readAsStringSync();
     expect(rd.method, txt);
   });
+
+  test('test queryurl method', () {
+    var bd = BGFDocument('lemon', '2', '');
+    var qu = bd.queryUrl();
+    expect(qu, 'https://www.bbcgoodfood.com/search/recipes?query=lemon&page=2');
+
+    bd = BGFDocument('butter', '1', '');
+    qu = bd.queryUrl();
+    expect(
+        qu, 'https://www.bbcgoodfood.com/search/recipes?query=butter&page=1');
+  });
 }
