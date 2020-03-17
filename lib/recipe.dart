@@ -142,6 +142,20 @@ class CKDocument extends RecDocument {
       : super(searchterm, page, searchfilter);
 }
 
+class BGFDocument extends RecDocument {
+  String searchterm;
+  String page;
+  String searchfilter;
+
+  BGFDocument(this.searchterm, this.page, this.searchfilter)
+      : super(searchterm, page, searchfilter);
+
+  @override
+  String queryUrl() {
+    return '$BBGFPrefix/recipes?query=$searchterm&page=$page';
+  }
+}
+
 class DocSelection {
   Element node;
 
