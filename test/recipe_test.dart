@@ -242,5 +242,9 @@ void main() {
     qu = bd.queryUrl();
     expect(
         qu, 'https://www.bbcgoodfood.com/search/recipes?query=butter&page=1');
+    bd = BGFDocument('butter', '2', 'votingapi_weighted_average');
+    var u =
+        'https://www.bbcgoodfood.com/search/recipes?query=butter&page=2&sort=votingapi_weighted_average';
+    expect(bd.queryUrl(), u);
   });
 }
