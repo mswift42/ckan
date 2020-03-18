@@ -152,7 +152,7 @@ class BGFDocument extends RecDocument {
 
   @override
   String queryUrl() {
-    return '$BBGFPrefix/recipes?query=$searchterm&page=$page';
+    return '$BBGFPrefix/recipes?query=$searchterm&page=$page${searchfilter != "" ? "&sort=" + searchfilter : ""}';
   }
 }
 
