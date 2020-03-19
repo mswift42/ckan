@@ -217,6 +217,22 @@ class BGFSelection extends DocSelection {
         .querySelector('.teaser-item__image > a > img')
         .attributes["src"];
   }
+
+  String preptime() {
+    return bgfnode
+        .querySelector(
+            'li.teaser-item__info-item.teaser-item__info-item--total-time')
+        .text
+        .trim();
+  }
+
+  String difficulty() {
+    return bgfnode
+        .querySelector(
+            'li.teaser-item__info-item.teaser-item__info-item--skill-level')
+        .text
+        .trim();
+  }
 }
 
 List<Recipe> recipes(Document doc) {
