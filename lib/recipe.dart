@@ -203,6 +203,20 @@ class BGFSelection extends DocSelection {
   Element bgfnode;
 
   BGFSelection(this.bgfnode) : super(bgfnode);
+
+  String title() {
+    return bgfnode.querySelector('.teaser-item__title').text.trim();
+  }
+
+  String url() {
+    return bgfnode.querySelector('.teaser-item__image > a').attributes["href"];
+  }
+
+  String thumbnail() {
+    return bgfnode
+        .querySelector('.teaser-item__image > a > img')
+        .attributes["src"];
+  }
 }
 
 List<Recipe> recipes(Document doc) {
