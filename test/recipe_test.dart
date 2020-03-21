@@ -247,4 +247,12 @@ void main() {
         'https://www.bbcgoodfood.com/search/recipes?query=butter&page=2&sort=votingapi_weighted_average';
     expect(bd.queryUrl(), u);
   });
+
+  test('test bgf page with lemon query', () {
+    Document body = _body('test/testhtml/bgf_lemon.html');
+    var bgfdocsel = BGFSelection(body.querySelector('.node-recipe'));
+    expect(bgfdocsel.title(), 'Lemon drizzle cake');
+    expect(bgfdocsel.url(),
+        'https://www.bbcgoodfood.com/recipes/lemon-drizzle-cake');
+  });
 }
