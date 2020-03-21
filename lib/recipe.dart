@@ -209,7 +209,7 @@ class BGFSelection extends DocSelection {
   }
 
   String url() {
-    return bgfnode.querySelector('.teaser-item__image > a').attributes["href"];
+    return 'https://www.bbcgoodfood.com${bgfnode.querySelector('.teaser-item__image > a').attributes["href"]}';
   }
 
   String thumbnail() {
