@@ -254,5 +254,9 @@ void main() {
     expect(bgfdocsel.title(), 'Lemon drizzle cake');
     expect(bgfdocsel.url(),
         'https://www.bbcgoodfood.com/recipes/lemon-drizzle-cake');
+    expect(bgfdocsel.thumbnail(),
+        'https://www.bbcgoodfood.com/sites/default/files/styles/teaser_item/public/user-collections/my-colelction-image/2015/12/recipe-image-legacy-id--1238452_7.jpg?itok=rEF-99pA');
+    expect(bgfdocsel.difficulty(), 'Easy');
+    expect(bgfdocsel.preptime(), '1 hour');
   });
 }
