@@ -213,9 +213,10 @@ class BGFSelection extends DocSelection {
   }
 
   String thumbnail() {
-    return bgfnode
-        .querySelector('.teaser-item__image > a > img')
-        .attributes["src"];
+    return 'https:' +
+        bgfnode
+            .querySelector('.teaser-item__image > a > img')
+            .attributes["src"];
   }
 
   String preptime() {
