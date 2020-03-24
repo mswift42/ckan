@@ -276,5 +276,32 @@ void main() {
     expect(bgfdocsel.preptime(), '50 mins');
   });
 
-  test('test bgf page with butter query', () {});
+  test('test bgf page with butter query', () {
+    Document body = _body('test/testhtml/bgf_butter.html');
+    var sels = body.querySelectorAll('.node-recipe');
+    var bgfdocsel = BGFSelection(sels[0]);
+    expect(bgfdocsel.title(), 'Buttered leeks');
+    expect(
+        bgfdocsel.url(), 'https://www.bbcgoodfood.com/recipes/buttered-leeks');
+    expect(bgfdocsel.thumbnail(),
+        'https://www.bbcgoodfood.com/sites/default/files/styles/teaser_item/public/recipe_images/recipe-image-legacy-id--1337_12.jpg?itok=WSHBx7lH');
+    expect(bgfdocsel.difficulty(), 'Easy');
+    expect(bgfdocsel.preptime(), '35 mins');
+    bgfdocsel = BGFSelection(sels[1]);
+    expect(bgfdocsel.title(), 'Flavoured butters');
+    expect(bgfdocsel.url(),
+        'https://www.bbcgoodfood.com/recipes/flavoured-butters');
+    expect(bgfdocsel.thumbnail(),
+        'https://www.bbcgoodfood.com/sites/default/files/styles/teaser_item/public/user-collections/my-colelction-image/2015/12/recipe-image-legacy-id--981478_11.jpg?itok=UiXb1ijE');
+    expect(bgfdocsel.difficulty(), 'Easy');
+    expect(bgfdocsel.preptime(), '15 mins');
+    bgfdocsel = BGFSelection(sels[14]);
+    expect(bgfdocsel.title(), 'Peanut butter cake');
+    expect(bgfdocsel.url(),
+        'https://www.bbcgoodfood.com/recipes/peanut-butter-cake');
+    expect(bgfdocsel.thumbnail(),
+        'https://www.bbcgoodfood.com/sites/default/files/styles/teaser_item/public/recipe_images/recipe-image-legacy-id--363579_12.jpg?itok=o_58PKeO');
+    expect(bgfdocsel.difficulty(), 'Easy');
+    expect(bgfdocsel.preptime(), '50 mins');
+  });
 }
