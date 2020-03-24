@@ -258,5 +258,23 @@ void main() {
         'https://www.bbcgoodfood.com/sites/default/files/styles/teaser_item/public/user-collections/my-colelction-image/2015/12/recipe-image-legacy-id--1238452_7.jpg?itok=rEF-99pA');
     expect(bgfdocsel.difficulty(), 'Easy');
     expect(bgfdocsel.preptime(), '1 hour');
+    bgfdocsel = BGFSelection(body.querySelectorAll('.node-recipe')[1]);
+    expect(bgfdocsel.title(), 'Lemon & poppyseed cupcakes');
+    expect(bgfdocsel.url(),
+        'https://www.bbcgoodfood.com/recipes/lemon-poppyseed-cupcakes');
+    expect(bgfdocsel.thumbnail(),
+        'https://www.bbcgoodfood.com/sites/default/files/styles/teaser_item/public/recipe_images/recipe-image-legacy-id--1273612_8.jpg?itok=GzEfNUuf');
+    expect(bgfdocsel.difficulty(), 'More effort');
+    expect(bgfdocsel.preptime(), '1 hour');
+    bgfdocsel = BGFSelection(body.querySelectorAll('.node-recipe')[6]);
+    expect(bgfdocsel.title(), 'Luscious lemon baked cheesecake');
+    expect(bgfdocsel.url(),
+        'https://www.bbcgoodfood.com/recipes/luscious-lemon-baked-cheesecake');
+    expect(bgfdocsel.thumbnail(),
+        'https://www.bbcgoodfood.com/sites/default/files/styles/teaser_item/public/user-collections/my-colelction-image/2015/12/recipe-image-legacy-id--22204_10.jpg?itok=KrQaUHSR');
+    expect(bgfdocsel.difficulty(), 'Easy');
+    expect(bgfdocsel.preptime(), '50 mins');
   });
+
+  test('test bgf page with butter query', () {});
 }
