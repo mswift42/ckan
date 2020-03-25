@@ -107,7 +107,7 @@ void main() {
 
   test('parse Recipe detail page', () {
     var body = _body('test/testhtml/gruene_bohnen_im_speckmantel.html');
-    var rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    var rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     expect(rd.title, 'Grüne Bohnen im Speckmantel');
     expect(rd.difficulty, 'simpel');
     expect(rd.thumbnail,
@@ -121,7 +121,7 @@ void main() {
     expect(rd.ingredients[7].ingredient, 'Butter');
 
     body = _body('test/testhtml/schupfnudel.html');
-    rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     expect(rd.title, 'Schupfnudel - Bohnen - Pfanne');
     expect(rd.difficulty, 'normal');
     expect(rd.thumbnail,
@@ -139,7 +139,7 @@ void main() {
     expect(rd.ingredients[7].ingredient, 'Olivenöl');
 
     body = _body('test/testhtml/gruene_bohnen_mit_speck.html');
-    rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     expect(rd.title, 'Grüne Bohnen mit Speck');
     expect(rd.difficulty, 'normal');
     expect(rd.thumbnail,
@@ -161,39 +161,39 @@ void main() {
 
   test('test prep info line', () {
     var body = _body('test/testhtml/zimtschnecken.html');
-    var rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    var rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     expect(rd.title, 'Zimtschnecken mit Sahneguss');
     expect(rd.difficulty, 'normal');
     expect(rd.cookingtime, '25 Min.');
     expect(rd.rating, '4.82');
 
     body = _body('test/testhtml/hefezopf.html');
-    rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     expect(rd.title, 'Friedas genialer Hefezopf');
     expect(rd.difficulty, 'normal');
     expect(rd.cookingtime, '30 Min.');
     expect(rd.rating, '4.82');
 
     body = _body('test/testhtml/pflaumenkuchen.html');
-    rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     expect(rd.title, 'Hefe-Pflaumenkuchen');
     expect(rd.difficulty, 'normal');
     expect(rd.cookingtime, '45 Min.');
 
     body = _body('test/testhtml/dampfnudel.html');
-    rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     expect(rd.title, 'Salzige Dampfnudeln');
     expect(rd.difficulty, 'normal');
     expect(rd.cookingtime, '30 Min.');
 
     body = _body('test/testhtml/brot_im_braeter.html');
-    rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     expect(rd.title, 'Rustikales Brot im Bräter');
     expect(rd.difficulty, 'simpel');
     expect(rd.cookingtime, '20 Min.');
 
     body = _body('test/testhtml/joghurtbombe.html');
-    rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     expect(rd.title, 'Joghurtbombe');
     expect(rd.difficulty, 'simpel');
     expect(rd.cookingtime, '20 Min.');
@@ -201,7 +201,7 @@ void main() {
 
   test('cooking time > 60 min.', () {
     var body = _body('test/testhtml/schneemoussetorte.html');
-    var rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    var rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     expect(rd.title, 'Schneemoussetorte mit Rhabarber');
     expect(rd.difficulty, 'normal');
     expect(rd.cookingtime, '90 Min.');
@@ -209,25 +209,25 @@ void main() {
 
   test('test "method" method', () {
     var body = _body('test/testhtml/schneemoussetorte.html');
-    var rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    var rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     var file = File('test/testhtml/schneemoussetortemethod.txt');
     var txt = file.readAsStringSync();
     expect(rd.method, txt);
 
     body = _body('test/testhtml/zimtschnecken.html');
-    rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     file = File('test/testhtml/zimtschneckenmethod.txt');
     txt = file.readAsStringSync();
     expect(rd.method, txt);
 
     body = _body('test/testhtml/gruene_bohnen_im_speckmantel.html');
-    rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     file = File('test/testhtml/gruene_bohnen_im_speckmantel_method.txt');
     txt = file.readAsStringSync();
     expect(rd.method, txt);
 
     body = _body('test/testhtml/gruene_bohnen_mit_speck.html');
-    rd = RecipeDetail.fromDoc(RecipeDetailDocument(body));
+    rd = RecipeDetail.fromDoc(CKRecipeDetailDocument(body));
     file = File('test/testhtml/gruene_bohnen_mit_speck_method.txt');
     txt = file.readAsStringSync();
     expect(rd.method, txt);

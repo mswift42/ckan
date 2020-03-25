@@ -55,7 +55,7 @@ class RecipeDetail {
         method: json['method']);
   }
 
-  factory RecipeDetail.fromDoc(RecipeDetailDocument doc) {
+  factory RecipeDetail.fromDoc(CKRecipeDetailDocument doc) {
     return RecipeDetail(
       title: doc.title(),
       rating: doc.rating(),
@@ -295,6 +295,12 @@ class RecipeDetailDocument {
     });
     return ingredients;
   }
+}
+
+class CKRecipeDetailDocument extends RecipeDetailDocument {
+  Document cdoc;
+
+  CKRecipeDetailDocument(this.cdoc) : super(cdoc);
 }
 
 Future<Document> getPage(String url) async {
