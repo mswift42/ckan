@@ -242,20 +242,20 @@ List<Recipe> recipes(Document doc) {
 }
 
 class RecipeDetailDocument {
-  Document cdoc;
+  Document doc;
 
-  RecipeDetailDocument(this.cdoc);
+  RecipeDetailDocument(this.doc);
 
   String title() {
-    return cdoc.querySelector('h1').text.trim();
+    return doc.querySelector('h1').text.trim();
   }
 
   String rating() {
-    return cdoc.querySelector('.ds-rating-avg>strong').text.trim();
+    return doc.querySelector('.ds-rating-avg>strong').text.trim();
   }
 
   String difficulty() {
-    return cdoc
+    return doc
         .querySelector('.recipe-difficulty')
         .text
         .replaceAll('\n', '')
@@ -264,13 +264,13 @@ class RecipeDetailDocument {
   }
 
   String cookingtime() {
-    var ct = cdoc.querySelector('.recipe-preptime').text;
+    var ct = doc.querySelector('.recipe-preptime').text;
     var split = ct.split('\n');
     return split[1].trim();
   }
 
   String thumbnail() {
-    var thumbs = cdoc
+    var thumbs = doc
         .querySelector('.bi-recipe-slider-open > amp-img')
         .attributes['srcset'];
     var img = thumbs.split('\n')[2].trim().replaceFirst(' 600w', '');
@@ -278,12 +278,12 @@ class RecipeDetailDocument {
   }
 
   String method() {
-    return cdoc.querySelector('.rds-recipe-meta+.ds-box').text.trimLeft();
+    return doc.querySelector('.rds-recipe-meta+.ds-box').text.trimLeft();
   }
 
   List<RecipeIngredient> ingredients() {
     var ingredients = List<RecipeIngredient>();
-    var ingtable = cdoc.querySelectorAll('.ingredients>tbody>tr');
+    var ingtable = doc.querySelectorAll('.ingredients>tbody>tr');
     ingtable.forEach((i) {
       var amount = i.querySelector('.td-left').text.trim();
       var amsplit = amount.split(' ');
@@ -298,9 +298,53 @@ class RecipeDetailDocument {
 }
 
 class CKRecipeDetailDocument extends RecipeDetailDocument {
-  Document cdoc;
+  Document doc;
 
-  CKRecipeDetailDocument(this.cdoc) : super(cdoc);
+  CKRecipeDetailDocument(this.doc) : super(doc);
+}
+
+class BGFRecipeDetailDocument extends RecipeDetailDocument {
+  Document doc;
+
+  BGFRecipeDetailDocument(this.doc) : super(doc);
+
+  @override
+  String title() {
+    return doc.querySelector('.recipe-header__title').text;
+  }
+
+  @override
+  String rating() {
+    return doc.querySelector('span[ratingValue]').attributes['content'];
+  }
+
+  @override
+  String difficulty() {
+    return doc.querySelector('recipe-details__text').text;
+  }
+
+  @override
+  String cookingtime() {
+    return doc.querySelector('.recipe-details__cooking-time-cook').text;
+  }
+
+  @override
+  String thumbnail() {
+    return 'https:' +
+        doc.querySelector('.img-container > img').attributes['src'];
+  }
+
+  List<String> methodlist() {
+    var ol = doc.querySelector('.method__list');
+    return ol.children.map((i) => i.text).toList();
+  }
+
+  List<String> ingredientList() {
+    return doc
+        .querySelectorAll('.ingredients-list__item')
+        .map((i) => i.text)
+        .toList();
+  }
 }
 
 Future<Document> getPage(String url) async {
