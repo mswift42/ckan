@@ -320,7 +320,23 @@ void main() {
     expect(bd.ingredientList()[0], '225g unsalted butter, softened');
     expect(bd.ingredientList()[5], 'juice 1½ lemons');
     expect(bd.ingredientList()[6], '85g caster sugar');
-    
-    body = _body('')
+
+    body = _body('test/testhtml/bgf_toad_hole.html');
+    bd = BGFRecipeDetailDocument(body);
+    expect(bd.title(), "Sam's toad-in-the-hole");
+    expect(bd.rating(), '4.47222');
+    expect(bd.difficulty(), 'Easy');
+    expect(bd.thumbnail(),
+        'https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/recipe-image-legacy-id--736458_11.jpg?itok=x-pnYsyr');
+    expect(bd.cookingtime(), '45 mins');
+    expect(bd.methodlist()[0], 'Heat oven to 220C/200C fan/gas 7.');
+    expect(bd.methodlist()[1],
+        'Put the 12 chipolatas in a 20 x 30cm roasting tin with 1 tbsp sunflower oil, then bake for 15 mins until browned.');
+    expect(bd.methodlist()[6], 'Serve with gravy and your favourite veg.');
+    expect(bd.ingredientList()[0], '12 chipolatas');
+    expect(bd.ingredientList()[1], '1 tbsp sunflower oil');
+    expect(bd.ingredientList()[2], '140g plain flour');
+    expect(bd.ingredientList()[3], '½ tsp salt');
+    expect(bd.ingredientList()[4], '2 eggs');
   });
 }
