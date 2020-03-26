@@ -338,5 +338,23 @@ void main() {
     expect(bd.ingredientList()[2], '140g plain flour');
     expect(bd.ingredientList()[3], '½ tsp salt');
     expect(bd.ingredientList()[4], '2 eggs');
+
+    body = _body('test/testhtml/bgf_classic_scones.html');
+    bd = BGFRecipeDetailDocument(body);
+    expect(bd.title(), 'Classic scones with jam & clotted cream');
+    expect(bd.rating(), '4.84282');
+    expect(bd.difficulty(), 'Easy');
+    expect(bd.cookingtime(), '10 mins');
+    expect(bd.methodlist()[0], 'Heat oven to 220C/fan 200C/gas 7.');
+    expect(bd.methodlist()[4],
+        'Add 1 tsp vanilla extract and a squeeze of lemon juice, then set aside for a moment.');
+    expect(bd.methodlist()[11],
+        'If freezing, freeze once cool. Defrost, then put in a low oven (about 160C/fan140C/gas 3) for a few mins to refresh.');
+    expect(bd.ingredientList()[0],
+        '350g self-raising flour, plus more for dusting');
+    expect(bd.ingredientList()[1], '¼ tsp salt');
+    expect(bd.ingredientList()[4], '3 tbsp caster sugar');
+    expect(bd.ingredientList()[6], '1 tsp vanilla extract');
+    expect(bd.ingredientList()[9], 'jam and clotted cream, to serve');
   });
 }

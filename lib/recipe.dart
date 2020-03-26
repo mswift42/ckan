@@ -351,7 +351,7 @@ class BGFRecipeDetailDocument extends RecipeDetailDocument {
   List<String> ingredientList() {
     return doc
         .querySelectorAll('.ingredients-list__item')
-        .map((i) => i.attributes["content"])
+        .map((i) => i.attributes["content"].trim())
         .toList();
   }
 }
