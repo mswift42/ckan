@@ -304,4 +304,23 @@ void main() {
     expect(bgfdocsel.difficulty(), 'Easy');
     expect(bgfdocsel.preptime(), '50 mins');
   });
+
+  test('test bgf detail page', () {
+    Document body = _body('test/testhtml/bgf_lemon_drizzle.html');
+    var bd = BGFRecipeDetailDocument(body);
+    expect(bd.title(), 'Lemon drizzle cake');
+    expect(bd.rating(), '4.69122');
+    expect(bd.difficulty(), 'Easy');
+    expect(bd.thumbnail(),
+        'https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/user-collections/my-colelction-image/2015/12/recipe-image-legacy-id--1238452_7.jpg?itok=Hnxk9fQn');
+    expect(bd.cookingtime(), '45 mins');
+    expect(bd.methodlist()[0], 'Heat oven to 180C/fan 160C/gas 4.');
+    expect(bd.methodlist()[3],
+        'Line a loaf tin (8 x 21cm) with greaseproof paper, then spoon in the mixture and level the top with a spoon.');
+    expect(bd.ingredientList()[0], '225g unsalted butter, softened');
+    expect(bd.ingredientList()[5], 'juice 1½ lemons');
+    expect(bd.ingredientList()[6], '85g caster sugar');
+    
+    body = _body('')
+  });
 }
