@@ -18,3 +18,8 @@ class SearchFilter {
 
   const SearchFilter(this.criterion, this.abbrev);
 }
+
+class RecipeSource {
+  final String name;
+  const RecipeSource(this.name);
+}

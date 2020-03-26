@@ -51,12 +51,18 @@ class _RecipeSearchState extends State<RecipeSearch> {
   Set<String> _lastSearches = Set();
   final controller = TextEditingController();
   SearchFilter activeFilter = _searchFilters[0];
+  RecipeSource activeSource = _sources[0];
   Set<RecipeDetail> _favourites = {};
 
   static final List<SearchFilter> _searchFilters = [
     SearchFilter("relevanz", ""),
     SearchFilter("bewertung", "o8"),
     SearchFilter("datum", "o3"),
+  ];
+
+  static final List<RecipeSource> _sources = [
+    RecipeSource("Chefkoch"),
+    RecipeSource("BBCGF"),
   ];
 
   void _setSearchQueryText() {
@@ -123,6 +129,12 @@ class _RecipeSearchState extends State<RecipeSearch> {
     _searchRecipe(searchquery);
   }
 
+  void _handleActiveSourceChanged(RecipeSource source) {
+    setState(() {
+      activeSource = source;
+    });
+  }
+
   void _handleFavouriteViewPressed() {
     Navigator.push(
         context,
@@ -160,6 +172,13 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     _radioWidget(i, activeFilter, _handleActiveFilterChanged))
                 .toList(),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+              children: _sources
+              .map((i) =>
+              _radioWidget(i, activeSource, _handleActiveSourceChanged))
+              .toList(),
+          )
           LastSearchGrid(_handleDelete, _handlePillTap, _lastSearches.toList()),
         ],
       ),
