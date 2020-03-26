@@ -330,7 +330,11 @@ class BGFRecipeDetailDocument extends RecipeDetailDocument {
 
   @override
   String cookingtime() {
-    return doc.querySelector('.recipe-details__cooking-time-cook').text;
+    return doc
+        .querySelector('.recipe-details__cooking-time-cook')
+        .text
+        .substring(7)
+        .trim();
   }
 
   @override
@@ -347,7 +351,7 @@ class BGFRecipeDetailDocument extends RecipeDetailDocument {
   List<String> ingredientList() {
     return doc
         .querySelectorAll('.ingredients-list__item')
-        .map((i) => i.text)
+        .map((i) => i.attributes["content"])
         .toList();
   }
 }
