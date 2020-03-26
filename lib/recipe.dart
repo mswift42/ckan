@@ -322,7 +322,10 @@ class BGFRecipeDetailDocument extends RecipeDetailDocument {
 
   @override
   String difficulty() {
-    return doc.querySelector('recipe-details__text').text;
+    return doc
+        .querySelector('.recipe-details__item--skill-level > span')
+        .text
+        .trim();
   }
 
   @override
