@@ -315,7 +315,9 @@ class BGFRecipeDetailDocument extends RecipeDetailDocument {
 
   @override
   String rating() {
-    return doc.querySelector('span[ratingValue]').attributes['content'];
+    return doc
+        .querySelector('meta[itemprop="ratingValue"]')
+        .attributes["content"];
   }
 
   @override
