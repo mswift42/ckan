@@ -168,17 +168,17 @@ class _RecipeSearchState extends State<RecipeSearch> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: _searchFilters
-                .map((i) =>
-                    _radioWidget(i, activeFilter, _handleActiveFilterChanged))
+                .map((i) => _radioWidgetCriteria(
+                    i, activeFilter, _handleActiveFilterChanged))
                 .toList(),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-              children: _sources
-              .map((i) =>
-              _radioWidget(i, activeSource, _handleActiveSourceChanged))
-              .toList(),
-          )
+            children: _sources
+                .map((i) => _radioWidgetSources(
+                    i, activeSource, _handleActiveSourceChanged))
+                .toList(),
+          ),
           LastSearchGrid(_handleDelete, _handlePillTap, _lastSearches.toList()),
         ],
       ),
@@ -186,13 +186,28 @@ class _RecipeSearchState extends State<RecipeSearch> {
   }
 }
 
-Widget _radioWidget(SearchFilter value, SearchFilter groupvalue,
+Widget _radioWidgetCriteria(SearchFilter value, SearchFilter groupvalue,
     ValueChanged<SearchFilter> handler) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.end,
     children: <Widget>[
       Text(value.criterion),
       Radio<SearchFilter>(
+        value: value,
+        groupValue: groupvalue,
+        onChanged: handler,
+      ),
+    ],
+  );
+}
+
+Widget _radioWidgetSources(RecipeSource value, RecipeSource groupvalue,
+    ValueChanged<RecipeSource> handler) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: <Widget>[
+      Text(value.name),
+      Radio<RecipeSource>(
         value: value,
         groupValue: groupvalue,
         onChanged: handler,
