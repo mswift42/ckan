@@ -172,13 +172,6 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     i, activeFilter, _handleActiveFilterChanged))
                 .toList(),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: _sources
-                .map((i) => _radioWidgetSources(
-                    i, activeSource, _handleActiveSourceChanged))
-                .toList(),
-          ),
           LastSearchGrid(_handleDelete, _handlePillTap, _lastSearches.toList()),
         ],
       ),
@@ -201,18 +194,23 @@ Widget _radioWidgetCriteria(SearchFilter value, SearchFilter groupvalue,
   );
 }
 
-Widget _radioWidgetSources(RecipeSource value, RecipeSource groupvalue,
-    ValueChanged<RecipeSource> handler) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.end,
-    children: <Widget>[
-      Text(value.name),
-      Radio<RecipeSource>(
-        value: value,
-        groupValue: groupvalue,
-        onChanged: handler,
-      ),
-    ],
+Widget _sourceButtons(RecipeSource value, RecipeSource groupvalue,
+    ValueChanged<RecipeSource> handler, List<RecipeSource> sources) {
+  return DropdownButton<RecipeSource>(
+    value: groupvalue,
+    icon: Icon(Icons.arrow_downward),
+    underline: Container(
+      height: 2,
+      color: Colors.black12,
+    ),
+    onChanged: handler,
+    items: sources.map((i) {
+      return DropdownMenuItem(
+        value: i,
+        child: Text(i.name),
+      );
+    }),
+
   );
 }
 
