@@ -150,6 +150,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
       appBar: AppBar(
         title: Text('CK'),
         actions: <Widget>[
+          _sourceButtons(_handleActiveSourceChanged, _sources),
           IconButton(
             icon: Icon(Icons.favorite),
             onPressed: _handleFavouriteViewPressed,
@@ -194,10 +195,9 @@ Widget _radioWidgetCriteria(SearchFilter value, SearchFilter groupvalue,
   );
 }
 
-Widget _sourceButtons(RecipeSource value, RecipeSource groupvalue,
-    ValueChanged<RecipeSource> handler, List<RecipeSource> sources) {
+Widget _sourceButtons( ValueChanged<RecipeSource> handler, List<RecipeSource> sources) {
   return DropdownButton<RecipeSource>(
-    value: groupvalue,
+    value: sources[0],
     icon: Icon(Icons.arrow_downward),
     underline: Container(
       height: 2,
@@ -210,7 +210,6 @@ Widget _sourceButtons(RecipeSource value, RecipeSource groupvalue,
         child: Text(i.name),
       );
     }),
-
   );
 }
 
