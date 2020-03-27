@@ -144,6 +144,25 @@ class _RecipeSearchState extends State<RecipeSearch> {
                 )));
   }
 
+  Widget _sourceButtons(
+      ValueChanged<RecipeSource> handler, List<RecipeSource> sources) {
+    return DropdownButton<RecipeSource>(
+      value: activeSource,
+      icon: Icon(Icons.arrow_downward),
+      underline: Container(
+        height: 2,
+        color: Colors.black12,
+      ),
+      onChanged: handler,
+      items: sources.map<DropdownMenuItem<RecipeSource>>((i) {
+        return DropdownMenuItem<RecipeSource>(
+          value: i,
+          child: Text(i.name),
+        );
+      }).toList(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -192,24 +211,6 @@ Widget _radioWidgetCriteria(SearchFilter value, SearchFilter groupvalue,
         onChanged: handler,
       ),
     ],
-  );
-}
-
-Widget _sourceButtons( ValueChanged<RecipeSource> handler, List<RecipeSource> sources) {
-  return DropdownButton<RecipeSource>(
-    value: sources[0],
-    icon: Icon(Icons.arrow_downward),
-    underline: Container(
-      height: 2,
-      color: Colors.black12,
-    ),
-    onChanged: handler,
-    items: sources.map((i) {
-      return DropdownMenuItem(
-        value: i,
-        child: Text(i.name),
-      );
-    }),
   );
 }
 
