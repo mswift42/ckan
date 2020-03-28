@@ -50,14 +50,20 @@ class _RecipeSearchState extends State<RecipeSearch> {
   String currentPage = "0";
   Set<String> _lastSearches = Set();
   final controller = TextEditingController();
-  SearchFilter activeFilter = _searchFilters[0];
+  SearchFilter activeFilter = _searchFiltersCK[0];
   RecipeSource activeSource = _sources[0];
   Set<RecipeDetail> _favourites = {};
 
-  static final List<SearchFilter> _searchFilters = [
+  static final List<SearchFilter> _searchFiltersCK = [
     SearchFilter("relevanz", ""),
     SearchFilter("bewertung", "o8"),
     SearchFilter("datum", "o3"),
+  ];
+
+  static final List<SearchFilter> _searchFiltersBBCGF = [
+    SearchFilter("relevanze", ""),
+    SearchFilter("rating", "votinagapi_weighted_average&order=desc"),
+    SearchFilter("date", "created&order=desc"),
   ];
 
   static final List<RecipeSource> _sources = [
@@ -187,7 +193,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: _searchFilters
+            children: _searchFiltersCK
                 .map((i) => _radioWidgetCriteria(
                     i, activeFilter, _handleActiveFilterChanged))
                 .toList(),
