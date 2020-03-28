@@ -193,10 +193,17 @@ class _RecipeSearchState extends State<RecipeSearch> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: _searchFiltersCK
-                .map((i) => _radioWidgetCriteria(
-                    i, activeFilter, _handleActiveFilterChanged))
-                .toList(),
+            children: [
+              if (activeSource.name == 'Chefkoch')
+                ..._searchFiltersCK
+                    .map((i) => _radioWidgetCriteria(
+                        i, activeFilter, _handleActiveFilterChanged))
+                    .toList(),
+              ..._searchFiltersBBCGF
+                  .map((i) => _radioWidgetCriteria(
+                      i, activeFilter, _handleActiveFilterChanged))
+                  .toList(),
+            ],
           ),
           LastSearchGrid(_handleDelete, _handlePillTap, _lastSearches.toList()),
         ],
