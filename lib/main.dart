@@ -50,8 +50,8 @@ class _RecipeSearchState extends State<RecipeSearch> {
   String currentPage = "0";
   Set<String> _lastSearches = Set();
   final controller = TextEditingController();
-  SearchFilter activeFilter = _searchFiltersCK[0];
   RecipeSource activeSource = _sources[0];
+  SearchFilter activeFilter = _searchFiltersCK[0];
   Set<RecipeDetail> _favourites = {};
 
   static final List<SearchFilter> _searchFiltersCK = [
@@ -61,7 +61,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
   ];
 
   static final List<SearchFilter> _searchFiltersBBCGF = [
-    SearchFilter("relevanze", ""),
+    SearchFilter("relevance", ""),
     SearchFilter("rating", "votinagapi_weighted_average&order=desc"),
     SearchFilter("date", "created&order=desc"),
   ];
@@ -199,10 +199,11 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     .map((i) => _radioWidgetCriteria(
                         i, activeFilter, _handleActiveFilterChanged))
                     .toList(),
-              ..._searchFiltersBBCGF
-                  .map((i) => _radioWidgetCriteria(
-                      i, activeFilter, _handleActiveFilterChanged))
-                  .toList(),
+              if (activeSource.name == 'BBCGF')
+                ..._searchFiltersBBCGF
+                    .map((i) => _radioWidgetCriteria(
+                        i, activeFilter, _handleActiveFilterChanged))
+                    .toList(),
             ],
           ),
           LastSearchGrid(_handleDelete, _handlePillTap, _lastSearches.toList()),
