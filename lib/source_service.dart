@@ -1,0 +1,4 @@
+enum SourceService {
+  chefkoch,
+  bbcgf,
+}
