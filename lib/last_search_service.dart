@@ -1,7 +1,7 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
-import 'dart:async';
 
 class LastSearchService {
   final String lastSearchesFileCK = 'lastsearches.txt';
