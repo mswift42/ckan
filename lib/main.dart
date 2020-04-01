@@ -33,6 +33,12 @@ class _CKAppState extends State<CKApp> {
     RecipeSource("BBCGF"),
   ];
 
+  void handleSourceChange(RecipeSource source) {
+    setState(() {
+      activeSource = source;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,7 +52,7 @@ class _CKAppState extends State<CKApp> {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => RecipeSearch(),
+        '/': (context) => RecipeSearch(activeSource, handleSourceChange),
       },
     );
   }
@@ -54,6 +60,10 @@ class _CKAppState extends State<CKApp> {
 
 class RecipeSearch extends StatefulWidget {
   final LastSearchService searchService = LastSearchService();
+  final RecipeSource activeSource;
+  final ValueChanged<RecipeSource> onChanged;
+
+  RecipeSearch(this.activeSource, this.onChanged);
 
   @override
   _RecipeSearchState createState() => _RecipeSearchState();
@@ -64,7 +74,6 @@ class _RecipeSearchState extends State<RecipeSearch> {
   String currentPage = "0";
   Set<String> _lastSearches = Set();
   final controller = TextEditingController();
-  RecipeSource activeSource = _sources[0];
   SearchFilter activeFilter = _searchFiltersCK[0];
   Set<RecipeDetail> _favourites = {};
 
@@ -74,15 +83,15 @@ class _RecipeSearchState extends State<RecipeSearch> {
     SearchFilter("datum", "o3"),
   ];
 
+  static final List<RecipeSource> _sources = [
+    RecipeSource("Chefkoch"),
+    RecipeSource("BBCGF"),
+  ];
+
   static final List<SearchFilter> _searchFiltersBBCGF = [
     SearchFilter("relevance", ""),
     SearchFilter("rating", "votinagapi_weighted_average&order=desc"),
     SearchFilter("date", "created&order=desc"),
-  ];
-
-  static final List<RecipeSource> _sources = [
-    RecipeSource("Chefkoch"),
-    RecipeSource("BBCGF"),
   ];
 
   void _setSearchQueryText() {
@@ -150,9 +159,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
   }
 
   void _handleActiveSourceChanged(RecipeSource source) {
-    setState(() {
-      activeSource = source;
-    });
+    widget.onChanged(source);
   }
 
   void _handleFavouriteViewPressed() {
@@ -167,7 +174,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
   Widget _sourceButtons(
       ValueChanged<RecipeSource> handler, List<RecipeSource> sources) {
     return DropdownButton<RecipeSource>(
-      value: activeSource,
+      value: widget.activeSource,
       icon: Icon(Icons.arrow_downward),
       underline: Container(
         height: 2,
@@ -208,12 +215,12 @@ class _RecipeSearchState extends State<RecipeSearch> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (activeSource.name == 'Chefkoch')
+              if (widget.activeSource.name == 'Chefkoch')
                 ..._searchFiltersCK
                     .map((i) => _radioWidgetCriteria(
                         i, activeFilter, _handleActiveFilterChanged))
                     .toList(),
-              if (activeSource.name == 'BBCGF')
+              if (widget.activeSource.name == 'BBCGF')
                 ..._searchFiltersBBCGF
                     .map((i) => _radioWidgetCriteria(
                         i, activeFilter, _handleActiveFilterChanged))
