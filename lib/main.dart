@@ -11,24 +11,37 @@ import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-void main() => runApp(
+void main() =>
+    runApp(
       ChangeNotifierProvider(
         create: (context) => FavouriteModel(),
         child: CKApp(),
       ),
     );
 
-class CKApp extends StatelessWidget {
-  // This widget is the root of your application.
+class CKApp extends StatefulWidget {
 
+  @override
+  _CKAppState createState() => _CKAppState();
+}
+
+class _CKAppState extends State<CKApp> {
+  Color primarySwatchCK = Colors.lightGreen;
+  Color primarySwatchBBCGF = Colors.teal[300];
+  RecipeSource activeSource = _sources[0];
+
+  static final List<RecipeSource> _sources = [
+    RecipeSource("Chefkoch"),
+    RecipeSource("BBCGF"),
+  ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CK',
       theme: ThemeData(
-        primaryColor: Colors.blueGrey[400],
-        accentColor: Colors.blueGrey[500],
-        primarySwatch: Colors.lightGreen,
+          primaryColor: Colors.blueGrey[400],
+          accentColor: Colors.blueGrey[500],
+          primarySwatch: (widget.activeSource == widget.)
       ),
       initialRoute: '/',
       routes: {
@@ -145,13 +158,14 @@ class _RecipeSearchState extends State<RecipeSearch> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => FavouritesView(
+            builder: (context) =>
+                FavouritesView(
                   favourites: _favourites.toList(),
                 )));
   }
 
-  Widget _sourceButtons(
-      ValueChanged<RecipeSource> handler, List<RecipeSource> sources) {
+  Widget _sourceButtons(ValueChanged<RecipeSource> handler,
+      List<RecipeSource> sources) {
     return DropdownButton<RecipeSource>(
       value: activeSource,
       icon: Icon(Icons.arrow_downward),
@@ -196,12 +210,14 @@ class _RecipeSearchState extends State<RecipeSearch> {
             children: [
               if (activeSource.name == 'Chefkoch')
                 ..._searchFiltersCK
-                    .map((i) => _radioWidgetCriteria(
+                    .map((i) =>
+                    _radioWidgetCriteria(
                         i, activeFilter, _handleActiveFilterChanged))
                     .toList(),
               if (activeSource.name == 'BBCGF')
                 ..._searchFiltersBBCGF
-                    .map((i) => _radioWidgetCriteria(
+                    .map((i) =>
+                    _radioWidgetCriteria(
                         i, activeFilter, _handleActiveFilterChanged))
                     .toList(),
             ],
@@ -228,8 +244,8 @@ Widget _radioWidgetCriteria(SearchFilter value, SearchFilter groupvalue,
   );
 }
 
-FutureBuilder<List<Recipe>> _showResultsBody(
-    Future<List<Recipe>> handler, SearchQuery sq, ValueChanged<String> cb) {
+FutureBuilder<List<Recipe>> _showResultsBody(Future<List<Recipe>> handler,
+    SearchQuery sq, ValueChanged<String> cb) {
   return FutureBuilder(
     future: handler,
     builder: (BuildContext context, AsyncSnapshot<List<Recipe>> snapshot) {
@@ -250,8 +266,8 @@ FutureBuilder<List<Recipe>> _showResultsBody(
   );
 }
 
-FutureBuilder<RecipeDetail> _showRecipeDetailBody(
-    Future<RecipeDetail> handler, ImageProvider image) {
+FutureBuilder<RecipeDetail> _showRecipeDetailBody(Future<RecipeDetail> handler,
+    ImageProvider image) {
   return FutureBuilder(
     future: handler,
     builder: (BuildContext context, AsyncSnapshot<RecipeDetail> snapshot) {
@@ -325,9 +341,9 @@ class _RecipeGridState extends State<RecipeGrid> {
       ),
       floatingActionButton: bottomOfPage
           ? FloatingActionButton(
-              onPressed: _showNextResults,
-              child: Icon(Icons.arrow_forward),
-            )
+        onPressed: _showNextResults,
+        child: Icon(Icons.arrow_forward),
+      )
           : Container(),
       body: Column(
         children: <Widget>[
@@ -478,7 +494,9 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
+    final Size _size = MediaQuery
+        .of(context)
+        .size;
     const double _kRecipeViewerMaxWidth = 460.0;
     final bool _fullWidth = _size.width < _kRecipeViewerMaxWidth;
 
@@ -582,9 +600,9 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
         bottom: TabBar(tabs: <Widget>[
           Tab(
               icon: Icon(
-            Icons.description,
-            color: txtcolor,
-          )),
+                Icons.description,
+                color: txtcolor,
+              )),
           Tab(icon: Icon(Icons.list, color: appiconcolor)),
           Tab(icon: Icon(Icons.info, color: appiconcolor)),
         ]));
@@ -671,12 +689,12 @@ class LastSearchGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: Wrap(
-      spacing: 12.0,
-      runSpacing: 4.0,
-      children: _lastSearches
-          .map((i) => LastSearchWidget(i, _handleOnDelete, _handleOnTap))
-          .toList(),
-    ));
+          spacing: 12.0,
+          runSpacing: 4.0,
+          children: _lastSearches
+              .map((i) => LastSearchWidget(i, _handleOnDelete, _handleOnTap))
+              .toList(),
+        ));
   }
 }
 
