@@ -1,4 +1,6 @@
 import 'package:ckan/recipe.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
 Future<List<Recipe>> fetchRecipes(SearchQuery searchQuery) async {
   var cdoc = CKDocument(searchQuery.searchterm, searchQuery.page.toString(),
@@ -19,7 +21,11 @@ class SearchFilter {
   const SearchFilter(this.criterion, this.abbrev);
 }
 
-class RecipeSource {
+@immutable
+class RecipeSource extends Equatable {
   final String name;
   const RecipeSource(this.name);
+
+  @override
+  List<Object> get props => [name];
 }

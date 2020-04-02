@@ -30,6 +30,7 @@ dependencies:
   provider: ^4.0.4
   path_provider: ^1.6.5
   quiver: ^2.0.5
+  equatable: ^1.1.1
 
 dev_dependencies:
   test:
