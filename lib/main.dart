@@ -52,7 +52,7 @@ class _CKAppState extends State<CKApp> {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => RecipeSearch(activeSource, handleSourceChange),
+        '/': (context) => RecipeSearch(activeSource),
       },
     );
   }
@@ -61,9 +61,8 @@ class _CKAppState extends State<CKApp> {
 class RecipeSearch extends StatefulWidget {
   final LastSearchService searchService = LastSearchService();
   final RecipeSource activeSource;
-  final ValueChanged<RecipeSource> onChanged;
 
-  RecipeSearch(this.activeSource, this.onChanged);
+  RecipeSearch(this.activeSource);
 
   @override
   _RecipeSearchState createState() => _RecipeSearchState();
@@ -158,9 +157,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
     _searchRecipe(searchquery);
   }
 
-  void _handleActiveSourceChanged(RecipeSource source) {
-    widget.onChanged(source);
-  }
+  void _handleActiveSourceChanged(RecipeSource source) {}
 
   void _handleFavouriteViewPressed() {
     Navigator.push(
