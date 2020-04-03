@@ -3,12 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Source extends ChangeNotifier {
-  RecipeSource _source;
+  RecipeSource _activeSource;
 
-  RecipeSource get source => _source;
+  RecipeSource get source => _activeSource;
 
   set source(RecipeSource newSource) {
-    _source = newSource;
+    _activeSource = newSource;
     notifyListeners();
   }
 
