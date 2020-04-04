@@ -2,7 +2,7 @@ import 'package:ckan/recipe_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class Source extends ChangeNotifier {
+class SourceModel extends ChangeNotifier {
   RecipeSource _activeSource;
 
   RecipeSource get source => _activeSource;
@@ -12,10 +12,10 @@ class Source extends ChangeNotifier {
     notifyListeners();
   }
 
-  static const _sources = [
+  final List<RecipeSource> _sources = [
     RecipeSource('Chefkoch'),
     RecipeSource('BBCGF'),
   ];
 
-  static get sources => _sources;
+  List<RecipeSource> get sources => _sources;
 }
