@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ckan/last_search_service.dart';
 import 'package:ckan/models/favourite.dart';
+import 'package:ckan/models/source.dart';
 import 'package:ckan/page_results_service.dart';
 import 'package:ckan/recipe.dart';
 import 'package:ckan/recipe_service.dart';
@@ -80,11 +81,6 @@ class _RecipeSearchState extends State<RecipeSearch> {
     SearchFilter("relevanz", ""),
     SearchFilter("bewertung", "o8"),
     SearchFilter("datum", "o3"),
-  ];
-
-  static final List<RecipeSource> _sources = [
-    RecipeSource("Chefkoch"),
-    RecipeSource("BBCGF"),
   ];
 
   static final List<SearchFilter> _searchFiltersBBCGF = [
@@ -189,11 +185,15 @@ class _RecipeSearchState extends State<RecipeSearch> {
 
   @override
   Widget build(BuildContext context) {
+    var activeSource = Provider.of<SourceModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('CK'),
         actions: <Widget>[
-          _sourceButtons(_handleActiveSourceChanged, _sources),
+          _sourceButtons(
+            _handleActiveSourceChanged,
+            activeSource.sources,
+          ),
           IconButton(
             icon: Icon(Icons.favorite),
             onPressed: _handleFavouriteViewPressed,
