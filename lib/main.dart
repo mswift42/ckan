@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ckan/last_search_service.dart';
-import 'package:ckan/models/favourite.dart';
 import 'package:ckan/models/source.dart';
 import 'package:ckan/page_results_service.dart';
 import 'package:ckan/recipe.dart';
@@ -13,10 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 void main() => runApp(
-      ChangeNotifierProvider(
-        create: (context) => FavouriteModel(),
-        child: CKApp(),
-      ),
+      CKApp(),
     );
 
 class CKApp extends StatefulWidget {
@@ -42,19 +38,24 @@ class _CKAppState extends State<CKApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'CK',
-      theme: ThemeData(
-        primaryColor: Colors.blueGrey[400],
-        accentColor: Colors.blueGrey[500],
-        primarySwatch: (activeSource == _sources[0])
-            ? primarySwatchCK
-            : primarySwatchBBCGF,
+    return MultiProvider(
+      providers: [
+        Provider(create: (context) => SourceModel()),
+      ],
+      child: MaterialApp(
+        title: 'CK',
+        theme: ThemeData(
+          primaryColor: Colors.blueGrey[400],
+          accentColor: Colors.blueGrey[500],
+          primarySwatch: (activeSource == _sources[0])
+              ? primarySwatchCK
+              : primarySwatchBBCGF,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => RecipeSearch(activeSource),
+        },
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => RecipeSearch(activeSource),
-      },
     );
   }
 }
