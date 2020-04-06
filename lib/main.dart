@@ -15,14 +15,10 @@ void main() => runApp(
       CKApp(),
     );
 
-class CKApp extends StatefulWidget {
-  @override
-  _CKAppState createState() => _CKAppState();
-}
+class CKApp extends StatelessWidget {
 
-class _CKAppState extends State<CKApp> {
-  Color primarySwatchCK = Colors.lightGreen;
-  Color primarySwatchBBCGF = Colors.teal[300];
+  final Color primarySwatchCK = Colors.lightGreen;
+  final Color primarySwatchBBCGF = Colors.teal[300];
 
   @override
   Widget build(BuildContext context) {
@@ -68,10 +64,7 @@ class MainApp extends StatelessWidget {
 }
 
 class RecipeSearch extends StatefulWidget {
-  final LastSearchService searchService = LastSearchService();
-  final RecipeSource activeSource;
 
-  RecipeSearch(this.activeSource);
 
   @override
   _RecipeSearchState createState() => _RecipeSearchState();
