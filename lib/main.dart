@@ -23,18 +23,6 @@ class CKApp extends StatefulWidget {
 class _CKAppState extends State<CKApp> {
   Color primarySwatchCK = Colors.lightGreen;
   Color primarySwatchBBCGF = Colors.teal[300];
-  RecipeSource activeSource = _sources[0];
-
-  static final List<RecipeSource> _sources = [
-    RecipeSource("Chefkoch"),
-    RecipeSource("BBCGF"),
-  ];
-
-  void handleSourceChange(RecipeSource source) {
-    setState(() {
-      activeSource = source;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,20 +30,39 @@ class _CKAppState extends State<CKApp> {
       providers: [
         Provider(create: (context) => SourceModel()),
       ],
-      child: MaterialApp(
-        title: 'CK',
-        theme: ThemeData(
-          primaryColor: Colors.blueGrey[400],
-          accentColor: Colors.blueGrey[500],
-          primarySwatch: (activeSource == _sources[0])
-              ? primarySwatchCK
-              : primarySwatchBBCGF,
-        ),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => RecipeSearch(activeSource),
-        },
+      child: MainApp(
+          primarySwatchCK: primarySwatchCK,
+          primarySwatchBBCGF: primarySwatchBBCGF),
+    );
+  }
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({
+    Key key,
+    @required this.primarySwatchCK,
+    @required this.primarySwatchBBCGF,
+  }) : super(key: key);
+
+  final Color primarySwatchCK;
+  final Color primarySwatchBBCGF;
+
+  @override
+  Widget build(BuildContext context) {
+    var activeSource = Provider.of<SourceModel>(context);
+    return MaterialApp(
+      title: 'CK',
+      theme: ThemeData(
+        primaryColor: Colors.blueGrey[400],
+        accentColor: Colors.blueGrey[500],
+        primarySwatch: (activeSource.source == activeSource.sources[0])
+            ? primarySwatchCK
+            : primarySwatchBBCGF,
       ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => RecipeSearch(),
+      },
     );
   }
 }
