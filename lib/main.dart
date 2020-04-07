@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ckan/last_search_service.dart';
 import 'package:ckan/models/source.dart';
+import 'package:ckan/models/lastsearch.dart';
 import 'package:ckan/page_results_service.dart';
 import 'package:ckan/recipe.dart';
 import 'package:ckan/recipe_service.dart';
@@ -16,7 +16,6 @@ void main() => runApp(
     );
 
 class CKApp extends StatelessWidget {
-
   final Color primarySwatchCK = Colors.lightGreen;
   final Color primarySwatchBBCGF = Colors.teal[300];
 
@@ -25,6 +24,7 @@ class CKApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(create: (context) => SourceModel()),
+        Provider(create: (context) => LastSearchModel()),
       ],
       child: MainApp(
           primarySwatchCK: primarySwatchCK,
@@ -64,8 +64,6 @@ class MainApp extends StatelessWidget {
 }
 
 class RecipeSearch extends StatefulWidget {
-
-
   @override
   _RecipeSearchState createState() => _RecipeSearchState();
 }
@@ -187,6 +185,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
   @override
   Widget build(BuildContext context) {
     var activeSource = Provider.of<SourceModel>(context);
+    var searches = Provider.of<LastSearchModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('CK'),
