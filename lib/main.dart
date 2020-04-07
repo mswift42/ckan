@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ckan/models/source.dart';
 import 'package:ckan/models/lastsearch.dart';
+import 'package:ckan/models/source.dart';
 import 'package:ckan/page_results_service.dart';
 import 'package:ckan/recipe.dart';
 import 'package:ckan/recipe_service.dart';
@@ -110,31 +110,11 @@ class _RecipeSearchState extends State<RecipeSearch> {
     super.dispose();
   }
 
-  void _searchRecipe(String inp) {
-    if (inp != '') {
-      _lastSearches.add(inp);
-      SearchQuery sq = SearchQuery(searchquery, currentPage, activeFilter);
-      widget.searchService.writeSearches(_lastSearches.toList());
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                _showResultsBody(fetchRecipes(sq), sq, _handleTap)),
-      );
-    }
-  }
-
   void _handleTap(String page) {
     setState(() {
       currentPage = page;
     });
     _searchRecipe(searchquery);
-  }
-
-  void _handleDelete(String value) {
-    setState(() {
-      _lastSearches.remove(value);
-    });
   }
 
   void _handlePillTap(String inp) {
@@ -163,29 +143,48 @@ class _RecipeSearchState extends State<RecipeSearch> {
                 )));
   }
 
-  Widget _sourceButtons(
-      ValueChanged<RecipeSource> handler, List<RecipeSource> sources) {
-    return DropdownButton<RecipeSource>(
-      value: widget.activeSource,
-      icon: Icon(Icons.arrow_downward),
-      underline: Container(
-        height: 2,
-        color: Colors.black12,
-      ),
-      onChanged: handler,
-      items: sources.map<DropdownMenuItem<RecipeSource>>((i) {
-        return DropdownMenuItem<RecipeSource>(
-          value: i,
-          child: Text(i.name),
-        );
-      }).toList(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     var activeSource = Provider.of<SourceModel>(context);
     var searches = Provider.of<LastSearchModel>(context);
+
+    void _searchRecipe(String inp) {
+      if (inp != '') {
+        _lastSearches.add(inp);
+        SearchQuery sq = SearchQuery(searchquery, currentPage, activeFilter);
+        searches.add(inp);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  _showResultsBody(fetchRecipes(sq), sq, _handleTap)),
+        );
+      }
+    }
+
+    void _handleDelete(String value) {
+      searches.remove(value);
+    }
+
+    Widget _sourceButtons(
+        ValueChanged<RecipeSource> handler) {
+      return DropdownButton<RecipeSource>(
+        value: activeSource.source,
+        icon: Icon(Icons.arrow_downward),
+        underline: Container(
+          height: 2,
+          color: Colors.black12,
+        ),
+        onChanged: handler,
+        items: activeSource.sources.map<DropdownMenuItem<RecipeSource>>((i) {
+          return DropdownMenuItem<RecipeSource>(
+            value: i,
+            child: Text(i.name),
+          );
+        }).toList(),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('CK'),
