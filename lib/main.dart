@@ -139,18 +139,18 @@ class _RecipeSearchState extends State<RecipeSearch> {
   }
 
   void _searchRecipe(String inp) {
-      SearchQuery sq = SearchQuery(searchquery, currentPage, activeFilter);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                _showResultsBody(fetchRecipes(sq), sq, _handleTap)),
-      );
+    SearchQuery sq = SearchQuery(searchquery, currentPage, activeFilter);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) =>
+              _showResultsBody(fetchRecipes(sq), sq, _handleTap)),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    var activeSource = Provider.of<SourceModel>(context);
+    var source = Provider.of<SourceModel>(context);
     var searches = Provider.of<LastSearchModel>(context);
 
     void _handleDelete(String value) {
@@ -159,14 +159,14 @@ class _RecipeSearchState extends State<RecipeSearch> {
 
     Widget _sourceButtons(ValueChanged<RecipeSource> handler) {
       return DropdownButton<RecipeSource>(
-        value: activeSource.active,
+        value: source.active,
         icon: Icon(Icons.arrow_downward),
         underline: Container(
           height: 2,
           color: Colors.black12,
         ),
         onChanged: handler,
-        items: activeSource.sources.map<DropdownMenuItem<RecipeSource>>((i) {
+        items: source.sources.map<DropdownMenuItem<RecipeSource>>((i) {
           return DropdownMenuItem<RecipeSource>(
             value: i,
             child: Text(i.name),
@@ -188,7 +188,6 @@ class _RecipeSearchState extends State<RecipeSearch> {
         actions: <Widget>[
           _sourceButtons(
             _handleActiveSourceChanged,
-            activeSource.sources,
           ),
           IconButton(
             icon: Icon(Icons.favorite),
@@ -208,12 +207,12 @@ class _RecipeSearchState extends State<RecipeSearch> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (widget.activeSource.name == 'Chefkoch')
+              if (source.active.name == 'Chefkoch')
                 ..._searchFiltersCK
                     .map((i) => _radioWidgetCriteria(
                         i, activeFilter, _handleActiveFilterChanged))
                     .toList(),
-              if (widget.activeSource.name == 'BBCGF')
+              if (source.active.name == 'BBCGF')
                 ..._searchFiltersBBCGF
                     .map((i) => _radioWidgetCriteria(
                         i, activeFilter, _handleActiveFilterChanged))
