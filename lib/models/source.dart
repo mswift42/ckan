@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class SourceModel extends ChangeNotifier {
   RecipeSource _activeSource;
 
-  RecipeSource get active => _activeSource;
+  RecipeSource get active => _activeSource ?? _sources[0];
 
   set active(RecipeSource newSource) {
     _activeSource = newSource;
