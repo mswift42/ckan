@@ -51,7 +51,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blueGrey[400],
         accentColor: Colors.blueGrey[500],
-        primarySwatch: (activeSource.source == activeSource.sources[0])
+        primarySwatch: (activeSource.active == activeSource.sources[0])
             ? primarySwatchCK
             : primarySwatchBBCGF,
       ),
@@ -96,11 +96,6 @@ class _RecipeSearchState extends State<RecipeSearch> {
   void initState() {
     super.initState();
     controller.addListener(_setSearchQueryText);
-    widget.searchService.readSearches().then((List value) {
-      setState(() {
-        _lastSearches = Set.from(value) ?? Set();
-      });
-    });
   }
 
   @override
@@ -143,34 +138,28 @@ class _RecipeSearchState extends State<RecipeSearch> {
                 )));
   }
 
+  void _searchRecipe(String inp) {
+      SearchQuery sq = SearchQuery(searchquery, currentPage, activeFilter);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                _showResultsBody(fetchRecipes(sq), sq, _handleTap)),
+      );
+  }
 
   @override
   Widget build(BuildContext context) {
     var activeSource = Provider.of<SourceModel>(context);
     var searches = Provider.of<LastSearchModel>(context);
 
-    void _searchRecipe(String inp) {
-      if (inp != '') {
-        _lastSearches.add(inp);
-        SearchQuery sq = SearchQuery(searchquery, currentPage, activeFilter);
-        searches.add(inp);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  _showResultsBody(fetchRecipes(sq), sq, _handleTap)),
-        );
-      }
-    }
-
     void _handleDelete(String value) {
       searches.remove(value);
     }
 
-    Widget _sourceButtons(
-        ValueChanged<RecipeSource> handler) {
+    Widget _sourceButtons(ValueChanged<RecipeSource> handler) {
       return DropdownButton<RecipeSource>(
-        value: activeSource.source,
+        value: activeSource.active,
         icon: Icon(Icons.arrow_downward),
         underline: Container(
           height: 2,
@@ -185,6 +174,14 @@ class _RecipeSearchState extends State<RecipeSearch> {
         }).toList(),
       );
     }
+
+    void _submitRecipe(String inp) {
+      if (inp != '') {
+        _searchRecipe(inp);
+        searches.add(inp);
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('CK'),
@@ -205,7 +202,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
             padding: const EdgeInsets.all(2.0),
             child: TextField(
               controller: controller,
-              onSubmitted: _searchRecipe,
+              onSubmitted: _submitRecipe,
             ),
           ),
           Row(
