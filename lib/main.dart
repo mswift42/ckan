@@ -23,8 +23,8 @@ class CKApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (context) => SourceModel()),
-        Provider(create: (context) => LastSearchModel()),
+        ChangeNotifierProvider(create: (context) => SourceModel()),
+        ChangeNotifierProvider(create: (context) => LastSearchModel()),
       ],
       child: MainApp(
           primarySwatchCK: primarySwatchCK,
