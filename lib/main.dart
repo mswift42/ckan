@@ -17,7 +17,7 @@ void main() => runApp(
 
 class CKApp extends StatelessWidget {
   final Color primarySwatchCK = Colors.lightGreen;
-  final Color primarySwatchBBCGF = Colors.teal[300];
+  final Color primarySwatchBBCGF = Colors.teal;
 
   @override
   Widget build(BuildContext context) {
