@@ -127,8 +127,6 @@ class _RecipeSearchState extends State<RecipeSearch> {
     _searchRecipe(searchquery);
   }
 
-  void _handleActiveSourceChanged(RecipeSource source) {}
-
   void _handleFavouriteViewPressed() {
     Navigator.push(
         context,
@@ -157,7 +155,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
       searches.remove(value);
     }
 
-    Widget _sourceButtons(ValueChanged<RecipeSource> handler) {
+    Widget _sourceButtons() {
       return DropdownButton<RecipeSource>(
         value: source.active,
         icon: Icon(Icons.arrow_downward),
@@ -165,7 +163,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
           height: 2,
           color: Colors.black12,
         ),
-        onChanged: handler,
+        onChanged: (value) => {source.active = value},
         items: source.sources.map<DropdownMenuItem<RecipeSource>>((i) {
           return DropdownMenuItem<RecipeSource>(
             value: i,
@@ -186,9 +184,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
       appBar: AppBar(
         title: Text('CK'),
         actions: <Widget>[
-          _sourceButtons(
-            _handleActiveSourceChanged,
-          ),
+          _sourceButtons(),
           IconButton(
             icon: Icon(Icons.favorite),
             onPressed: _handleFavouriteViewPressed,
