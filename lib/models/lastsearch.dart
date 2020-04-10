@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 class LastSearchModel extends ChangeNotifier {
   List<String> _savedSearches = [];
   var _searchService = LastSearchService();
+  LastSearchModel() {
+    lastSearches();
+  }
 
-  void lastSearches() async {
-    var searches = await _searchService.readSearches();
-    _savedSearches = searches;
+  Future<void> lastSearches() async {
+    _searchService.readSearches().then((value) => _savedSearches = value);
   }
 
   List<String> get searches => _savedSearches;
