@@ -71,7 +71,6 @@ class RecipeSearch extends StatefulWidget {
 class _RecipeSearchState extends State<RecipeSearch> {
   String searchquery = '';
   String currentPage = "0";
-  Set<String> _lastSearches = Set();
   final controller = TextEditingController();
   SearchFilter activeFilter = _searchFiltersCK[0];
   Set<RecipeDetail> _favourites = {};
@@ -149,10 +148,10 @@ class _RecipeSearchState extends State<RecipeSearch> {
   @override
   Widget build(BuildContext context) {
     var source = Provider.of<SourceModel>(context);
-    var searches = Provider.of<LastSearchModel>(context);
+    var last = Provider.of<LastSearchModel>(context);
 
     void _handleDelete(String value) {
-      searches.remove(value);
+      last.remove(value);
     }
 
     Widget _sourceButtons() {
@@ -176,7 +175,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
     void _submitRecipe(String inp) {
       if (inp != '') {
         _searchRecipe(inp);
-        searches.add(inp);
+        last.add(inp);
       }
     }
 
@@ -215,7 +214,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     .toList(),
             ],
           ),
-          LastSearchGrid(_handleDelete, _handlePillTap, _lastSearches.toList()),
+          LastSearchGrid(_handleDelete, _handlePillTap, last.searches),
         ],
       ),
     );
