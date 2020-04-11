@@ -667,10 +667,6 @@ class LastSearchGrid extends StatelessWidget {
 
   LastSearchGrid(this.onDeleted, this.onTapped, this._lastSearches);
 
-  void _handleOnDelete(String value) {
-    onDeleted(value);
-  }
-
   void _handleOnTap(String value) {
     onTapped(value);
   }
@@ -681,23 +677,17 @@ class LastSearchGrid extends StatelessWidget {
         child: Wrap(
       spacing: 12.0,
       runSpacing: 4.0,
-      children: _lastSearches
-          .map((i) => LastSearchWidget(i, _handleOnDelete, _handleOnTap))
-          .toList(),
+      children:
+          _lastSearches.map((i) => LastSearchWidget(i, _handleOnTap)).toList(),
     ));
   }
 }
 
 class LastSearchWidget extends StatelessWidget {
   final String value;
-  final ValueChanged<String> onDeleted;
   final ValueChanged<String> onTapped;
 
-  LastSearchWidget(this.value, this.onDeleted, this.onTapped);
-
-  void _handleOnDelete() {
-    onDeleted(value);
-  }
+  LastSearchWidget(this.value, this.onTapped);
 
   void _handleTap() {
     onTapped(value);
@@ -705,6 +695,11 @@ class LastSearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var last = Provider.of<LastSearchModel>(context);
+    void _handleOnDelete() {
+      last.remove(value);
+    }
+
     return Container(
       child: Chip(
         label: GestureDetector(
