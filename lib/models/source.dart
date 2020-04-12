@@ -19,3 +19,8 @@ class SourceModel extends ChangeNotifier {
 
   List<RecipeSource> get sources => _sources;
 }
+
+enum SourceService {
+  chefkoch,
+  bbcgf,
+}
