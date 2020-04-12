@@ -2,6 +2,9 @@ import 'package:ckan/last_search_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+// TODO Integrate LastSearchService into LastSearchModel.
+// TODO Save and restore from both sources separately.
+
 class LastSearchModel extends ChangeNotifier {
   Set<String> _savedSearches = {};
   var _searchService = LastSearchService();
@@ -10,7 +13,9 @@ class LastSearchModel extends ChangeNotifier {
   }
 
   Future<void> lastSearches() async {
-    _searchService.readSearches().then((value) => _savedSearches = value.toSet());
+    _searchService
+        .readSearches()
+        .then((value) => _savedSearches = value.toSet());
   }
 
   Set<String> get searches => _savedSearches;

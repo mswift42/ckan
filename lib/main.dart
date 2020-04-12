@@ -25,6 +25,7 @@ class CKApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => SourceModel()),
         ChangeNotifierProvider(create: (context) => LastSearchModel()),
+        // TODO Add SearchFilter model.
       ],
       child: MainApp(
           primarySwatchCK: primarySwatchCK,

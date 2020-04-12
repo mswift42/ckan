@@ -1,6 +1,6 @@
+// TODO Refactor as PageModel.
 class PageResultsService {
   int currentPage;
-
 
   String nextPage(String currentPage) {
     var curr = int.tryParse(currentPage);
@@ -9,5 +9,4 @@ class PageResultsService {
     }
     return (curr + 30).toString();
   }
-
 }
