@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 
 // TODO Save and restore from both sources separately.
 
-class LastSearchModel extends ChangeNotifier {
+class LastSearchModel with ChangeNotifier {
   final SourceName activeSoruce = SourceName.chefkoch;
   final String lastSearchesFileCK = 'lastsearches.txt';
   final String lastSearchesFileBBCGF = 'lastSearchesbbcgf.txt';

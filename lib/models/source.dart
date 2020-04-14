@@ -2,7 +2,7 @@ import 'package:ckan/recipe_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class SourceModel extends ChangeNotifier {
+class SourceModel with ChangeNotifier {
   RecipeSource _activeSource;
 
   RecipeSource get active => _activeSource ?? _sources[0];
