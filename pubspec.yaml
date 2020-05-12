@@ -28,7 +28,7 @@ dependencies:
   transparent_image: ^1.0.0
   html: ^0.14.0+3
   provider: ^4.0.4
-  path_provider: ^1.6.5
+  path_provider: ^1.6.8
   quiver: ^2.0.5
   equatable: ^1.1.1
 
