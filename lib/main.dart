@@ -52,7 +52,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blueGrey[400],
         accentColor: Colors.blueGrey[500],
-        primarySwatch: (activeSource.active == activeSource.sources[0])
+        primarySwatch: (activeSource.active == sources[0])
             ? primarySwatchCK
             : primarySwatchBBCGF,
       ),
@@ -164,7 +164,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
           color: Colors.black12,
         ),
         onChanged: (value) => {source.active = value},
-        items: source.sources.map<DropdownMenuItem<RecipeSource>>((i) {
+        items: sources.map<DropdownMenuItem<RecipeSource>>((i) {
           return DropdownMenuItem<RecipeSource>(
             value: i,
             child: Text(i.name),
@@ -176,7 +176,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
     void _submitRecipe(String inp) {
       if (inp != '') {
         _searchRecipe(inp);
-        last.add(inp);
+        last.add(inp, source.active);
       }
     }
 

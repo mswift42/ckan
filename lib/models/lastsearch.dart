@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:ckan/models/source.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../recipe_service.dart';
+
 // TODO Save and restore from both sources separately.
 
 class LastSearchModel with ChangeNotifier {
-  final SourceName activeSoruce = SourceName.chefkoch;
+  final RecipeSource activeSoruce = sources[0];
   final String lastSearchesFileCK = 'lastsearches.txt';
   final String lastSearchesFileBBCGF = 'lastSearchesbbcgf.txt';
   Set<String> _savedSearches = {};
@@ -18,13 +19,13 @@ class LastSearchModel with ChangeNotifier {
     lastSearches(activeSoruce);
   }
 
-  Future<void> lastSearches(SourceName source) async {
+  Future<void> lastSearches(RecipeSource source) async {
     readSearches(source).then((value) => _savedSearches = value.toSet());
   }
 
   Set<String> get searches => _savedSearches;
 
-  void add(String search, SourceName source) {
+  void add(String search, RecipeSource source) {
     _savedSearches.add(search);
     writeSearches(_savedSearches.toList(), source);
     notifyListeners();
@@ -51,9 +52,9 @@ class LastSearchModel with ChangeNotifier {
     return File('$path/$lastSearchesFileBBCGF');
   }
 
-  Future<File> writeSearches(List<String> searches, SourceName source) async {
-    switch (source) {
-      case SourceName.bbcgf:
+  Future<File> writeSearches(List<String> searches, RecipeSource source) async {
+    switch (source.name) {
+      case 'Chefkoch':
         final file = await _localFileBBCGF;
         return file.writeAsString(searches.join(','));
         break;
@@ -63,10 +64,10 @@ class LastSearchModel with ChangeNotifier {
     }
   }
 
-  Future<List<String>> readSearches(SourceName source) async {
+  Future<List<String>> readSearches(RecipeSource source) async {
     try {
-      switch (source) {
-        case SourceName.bbcgf:
+      switch (source.name) {
+        case 'Chefkoch':
           final file = await _localFileBBCGF;
           String contents = await file.readAsString();
           return contents?.split(',') ?? [];
