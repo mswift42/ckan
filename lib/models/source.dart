@@ -5,22 +5,10 @@ import 'package:flutter/material.dart';
 class SourceModel with ChangeNotifier {
   RecipeSource _activeSource;
 
-  RecipeSource get active => _activeSource ?? _sources[0];
+  RecipeSource get active => _activeSource ?? sources[0];
 
   set active(RecipeSource newSource) {
     _activeSource = newSource;
     notifyListeners();
   }
-
-  final List<RecipeSource> _sources = [
-    RecipeSource('Chefkoch'),
-    RecipeSource('BBCGF'),
-  ];
-
-  List<RecipeSource> get sources => _sources;
-}
-
-enum SourceName {
-  chefkoch,
-  bbcgf,
 }
