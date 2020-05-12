@@ -29,3 +29,8 @@ class RecipeSource extends Equatable {
   @override
   List<Object> get props => [name];
 }
+
+final List<RecipeSource> sources = [
+  RecipeSource('Chefkoch'),
+  RecipeSource('BBCGF'),
+];
