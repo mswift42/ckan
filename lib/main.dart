@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ckan/models/lastsearch.dart';
+import 'package:ckan/models/searchfilter.dart';
 import 'package:ckan/models/source.dart';
 import 'package:ckan/page_results_service.dart';
 import 'package:ckan/recipe.dart';
@@ -25,6 +26,7 @@ class CKApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => SourceModel()),
         ChangeNotifierProvider(create: (context) => LastSearchModel()),
+        ChangeNotifierProvider(create: (context) => SearchFilterModel()),
         // TODO Add SearchFilter model.
       ],
       child: MainApp(
@@ -47,6 +49,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var activeSource = Provider.of<SourceModel>(context);
+    var sf = Provider.of<SearchFilterModel>(context);
     return MaterialApp(
       title: 'CK',
       theme: ThemeData(
@@ -148,6 +151,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
 
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
     var source = Provider.of<SourceModel>(context);
     var last = Provider.of<LastSearchModel>(context);
 
@@ -166,8 +170,8 @@ class _RecipeSearchState extends State<RecipeSearch> {
         onChanged: (value) => {source.active = value},
         items: sources.map<DropdownMenuItem<RecipeSource>>((i) {
           return DropdownMenuItem<RecipeSource>(
-            value: i,
             child: Text(i.name),
+            value: i,
           );
         }).toList(),
       );
@@ -191,32 +195,40 @@ class _RecipeSearchState extends State<RecipeSearch> {
           )
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: TextField(
-              controller: controller,
-              onSubmitted: _submitRecipe,
-            ),
+      body: Center(
+        child: Container(
+          constraints: BoxConstraints(
+            maxWidth: _size.width > 800.0 ? 800.0 : _size.width,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (source.active.name == 'Chefkoch')
-                ..._searchFiltersCK
-                    .map((i) => _radioWidgetCriteria(
-                        i, activeFilter, _handleActiveFilterChanged))
-                    .toList(),
-              if (source.active.name == 'BBCGF')
-                ..._searchFiltersBBCGF
-                    .map((i) => _radioWidgetCriteria(
-                        i, activeFilter, _handleActiveFilterChanged))
-                    .toList(),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: TextField(
+                  controller: controller,
+                  onSubmitted: _submitRecipe,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (source.active.name == 'Chefkoch')
+                    ..._searchFiltersCK
+                        .map((i) => _radioWidgetCriteria(
+                            i, activeFilter, _handleActiveFilterChanged))
+                        .toList(),
+                  if (source.active.name == 'BBCGF')
+                    ..._searchFiltersBBCGF
+                        .map((i) => _radioWidgetCriteria(
+                            i, activeFilter, _handleActiveFilterChanged))
+                        .toList(),
+                ],
+              ),
+              LastSearchGrid(
+                  _handleDelete, _handlePillTap, last.searches.toList()),
             ],
           ),
-          LastSearchGrid(_handleDelete, _handlePillTap, last.searches.toList()),
-        ],
+        ),
       ),
     );
   }
@@ -467,10 +479,11 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
       image,
       maximumColorCount: 8,
     );
-    bgcolor = generator.lightMutedColor?.color ?? Colors.white;
-    txtcolor = generator.lightMutedColor?.bodyTextColor ?? Colors.black87;
-    appiconcolor = generator.lightMutedColor?.titleTextColor ?? Colors.black87;
-    setState(() {});
+    setState(() {
+      bgcolor = generator.darkMutedColor?.color ?? Colors.black54;
+      txtcolor = Colors.white;
+      appiconcolor = generator.darkMutedColor?.titleTextColor ?? Colors.black87;
+    });
   }
 
   @override
@@ -495,8 +508,9 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
       return AnimatedContainer(
         duration: _duration,
         color: bgcolor,
-        child: Column(
-          children: [
+        width: _kRecipeViewerMaxWidth,
+        child: Center(
+          child: Column(children: [
             Expanded(
               child: ListView(
                 shrinkWrap: true,
@@ -507,13 +521,16 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                 ],
               ),
             ),
-          ],
+          ]),
         ),
       );
     }
 
     Widget _recipeMethodView() {
       return AnimatedContainer(
+        constraints: BoxConstraints(
+          maxWidth: _kRecipeViewerMaxWidth,
+        ),
         duration: _duration,
         color: bgcolor,
         child: ListView(
