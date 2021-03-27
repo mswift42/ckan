@@ -108,8 +108,8 @@ class SearchQuery {
   SearchQuery(this.searchterm, this.page, this.searchFilter);
 }
 
-const CKPrefix = 'https://www.chefkoch.de';
-const BBGFPrefix = 'https://www.bbcgoodfood.com/search';
+const CKPrefix = 'www.chefkoch.de';
+const BBGFPrefix = 'www.bbcgoodfood.com/search';
 
 class RecDocument {
   String searchterm;
@@ -123,8 +123,9 @@ class RecDocument {
     return response.body;
   }
 
-  String queryUrl() {
-    return '$CKPrefix/rs/s$page$searchfilter/$searchterm/Rezepte.html';
+  Uri queryUrl() {
+    var addr = '$CKPrefix/rs/s$page$searchfilter/$searchterm/Rezepte.html';
+    return Uri.https(addr, '');
   }
 
   Future<Document> getDoc() async {
@@ -151,8 +152,10 @@ class BGFDocument extends RecDocument {
       : super(searchterm, page, searchfilter);
 
   @override
-  String queryUrl() {
-    return '$BBGFPrefix/recipes?query=$searchterm&page=$page${searchfilter != "" ? "&sort=" + searchfilter : ""}';
+  Uri queryUrl() {
+    var addr =
+        '$BBGFPrefix/recipes?query=$searchterm&page=$page${searchfilter != "" ? "&sort=" + searchfilter : ""}';
+    return Uri.https(addr, '');
   }
 }
 
@@ -282,7 +285,7 @@ class RecipeDetailDocument {
   }
 
   List<RecipeIngredient> ingredients() {
-    var ingredients = List<RecipeIngredient>();
+    List<RecipeIngredient> ingredients = [];
     var ingtable = doc.querySelectorAll('.ingredients>tbody>tr');
     ingtable.forEach((i) {
       var amount = i.querySelector('.td-left').text.trim();
@@ -356,7 +359,7 @@ class BGFRecipeDetailDocument extends RecipeDetailDocument {
   }
 }
 
-Future<Document> getPage(String url) async {
+Future<Document> getPage(Uri url) async {
   http.Response response = await http.get(url);
   return parse(response.body);
 }
