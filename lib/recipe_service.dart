@@ -9,7 +9,7 @@ Future<List<Recipe>> fetchRecipes(SearchQuery searchQuery) async {
   return recipes(body);
 }
 
-Future<RecipeDetail> fetchRecipeDetail(String url) async {
+Future<RecipeDetail> fetchRecipeDetail(Uri url) async {
   var doc = await getPage(url);
   return RecipeDetail.fromDoc(CKRecipeDetailDocument(doc));
 }

@@ -151,7 +151,6 @@ class _RecipeSearchState extends State<RecipeSearch> {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
     var source = Provider.of<SourceModel>(context);
     var last = Provider.of<LastSearchModel>(context);
 
@@ -198,7 +197,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
       body: Center(
         child: Container(
           constraints: BoxConstraints(
-            maxWidth: _size.width > 800.0 ? 800.0 : _size.width,
+            maxWidth: _maxWidth(context),
           ),
           child: Column(
             children: <Widget>[
@@ -500,15 +499,11 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
-    const double _kRecipeViewerMaxWidth = 460.0;
-    final bool _fullWidth = _size.width < _kRecipeViewerMaxWidth;
-
     Widget _recipeIngredientsView() {
       return AnimatedContainer(
         duration: _duration,
         color: bgcolor,
-        width: _kRecipeViewerMaxWidth,
+        width: _maxWidth(context),
         child: Center(
           child: Column(children: [
             Expanded(
@@ -529,7 +524,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
     Widget _recipeMethodView() {
       return AnimatedContainer(
         constraints: BoxConstraints(
-          maxWidth: _kRecipeViewerMaxWidth,
+          maxWidth: _maxWidth(context),
         ),
         duration: _duration,
         color: bgcolor,
@@ -537,7 +532,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
           children: <Widget>[
             Stack(
               children: [
-                buildFadeInImage(_size),
+                buildFadeInImage(MediaQuery.of(context).size),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: FloatingActionButton(
@@ -569,8 +564,8 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
             Padding(
               padding: EdgeInsets.fromLTRB(0.5, 0, 0.5, 10.0),
               child: SizedBox(
-                width: _fullWidth ? _size.width : _kRecipeViewerMaxWidth,
-                height: _size.height / 2.0,
+                width: _maxWidth(context),
+                height: MediaQuery.of(context).size.height / 2.0,
                 child: FadeInImage(
                   image: widget.image,
                   fit: BoxFit.fitWidth,
@@ -729,4 +724,13 @@ class LastSearchWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+double _maxWidth(BuildContext context) {
+  var mw = 800.0;
+  var devWidth = MediaQuery.of(context).size.width;
+  if (devWidth > mw) {
+    return mw;
+  }
+  return devWidth;
 }
