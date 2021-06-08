@@ -108,8 +108,8 @@ class SearchQuery {
   SearchQuery(this.searchterm, this.page, this.searchFilter);
 }
 
-const CKPrefix = 'www.chefkoch.de';
-const BBGFPrefix = 'www.bbcgoodfood.com/search';
+const CKPath = 'www.chefkoch.de';
+const BBGFPath = 'www.bbcgoodfood.com/search';
 
 class RecDocument {
   String searchterm;
@@ -124,12 +124,12 @@ class RecDocument {
   }
 
   Uri queryUrl() {
-    var addr = '$CKPrefix/rs/s$page$searchfilter/$searchterm/Rezepte.html';
-    return Uri.https(addr, '');
+    return Uri.https(CKPath, "$page$searchfilter/$searchterm/Rezepte.html");
   }
 
   Future<Document> getDoc() async {
     String ckbody = await getPage();
+    print(ckbody);
     return parse(ckbody);
   }
 }
@@ -154,7 +154,7 @@ class BGFDocument extends RecDocument {
   @override
   Uri queryUrl() {
     var addr =
-        '$BBGFPrefix/recipes?query=$searchterm&page=$page${searchfilter != "" ? "&sort=" + searchfilter : ""}';
+        '$BBGFPath/recipes?query=$searchterm&page=$page${searchfilter != "" ? "&sort=" + searchfilter : ""}';
     return Uri.https(addr, '');
   }
 }
